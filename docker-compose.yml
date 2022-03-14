@@ -1,0 +1,16 @@
+version: '3'
+services:
+  oracle:
+    platform: linux/x86_64 #m1 mac 전용 설정
+    image: oracleinanutshell/oracle-xe-11g:latest
+    container_name: oracle
+    volumes:
+      - oracle:/u01/app/oracle oracleinanutshell/oracle-xe-11g
+    environment:
+      ORACLE_ALLOW_REMOTE: true
+    restart: unless-stopped
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+volumes:
+  oracle:
