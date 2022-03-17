@@ -1,16 +1,30 @@
 version: '3'
 services:
-  oracle:
+#  oracle:
+#    platform: linux/x86_64 #m1 mac 전용 설정
+#    image: oracleinanutshell/oracle-xe-11g:latest
+#    container_name: oracle
+#    volumes:
+#      - oracle:/u01/app/oracle oracleinanutshell/oracle-xe-11g
+#    environment:
+#      ORACLE_ALLOW_REMOTE: true
+#    restart: unless-stopped
+#    ports:
+#      - "1521:1521"
+#      - "5500:5500"
+  mysql:
     platform: linux/x86_64 #m1 mac 전용 설정
-    image: oracleinanutshell/oracle-xe-11g:latest
-    container_name: oracle
-    volumes:
-      - oracle:/u01/app/oracle oracleinanutshell/oracle-xe-11g
-    environment:
-      ORACLE_ALLOW_REMOTE: true
-    restart: unless-stopped
+    container_name: mysql
+    image: mysql
+    restart: unless-stopped #컨테이너 스탑하기전까지 항상 재시작
     ports:
-      - "1521:1521"
-      - "5500:5500"
+      - "3308:3306"
+    environment: # -e 옵션
+      - MYSQL_DATABASE=skycommunity
+      - MYSQL_ROOT_PASSWORD=1234 # MYSQL root 패스워드 설정 옵션
+      - TZ=Asia/Seoul
+    volumes:
+      - mysqlSky:/data/db
+
 volumes:
-  oracle:
+  mysqlSky:
